@@ -3,9 +3,8 @@ node_modules/
 jobshield/client/node_modules/
 jobshield/server/node_modules/
 
-# Production builds
-dist/
-jobshield/client/dist/
+# Production builds (dist is tracked for zero-config production serving)
+# dist/
 
 # Environment variables
 .env

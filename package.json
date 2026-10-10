@@ -4,10 +4,13 @@
   "private": true,
   "description": "JobShield - AI-Powered Job Scam Detection Hackathon MVP",
   "scripts": {
+    "build": "cd jobshield/client && npm run build",
+    "start": "node jobshield/server/src/index.js",
     "dev:server": "cd jobshield/server && npm run dev",
     "dev:client": "cd jobshield/client && npm run dev",
     "start:server": "cd jobshield/server && npm start",
     "build:client": "cd jobshield/client && npm run build",
+    "preview": "cd jobshield/client && npm run preview",
     "test": "cd jobshield/server && npm test",
     "install:all": "cd jobshield/server && npm install && cd ../client && npm install"
   }

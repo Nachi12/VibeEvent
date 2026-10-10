@@ -2,9 +2,16 @@ import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import rateLimit from 'express-rate-limit';
+import path from 'path';
+import { fileURLToPath } from 'url';
+import fs from 'fs';
 import { runAllRuleChecks, computeRuleFallbackScore } from './rules.js';
 import { analyzePostingWithClaude } from './claude.js';
 import { createReport, getAllReports } from './report.js';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+const clientDistPath = path.resolve(__dirname, '../../client/dist');
 
 dotenv.config();
 
@@ -217,7 +224,48 @@ app.get('/api/reports', (req, res) => {
   });
 });
 
-// 7. Global 404 & Error Handler
+// 7. Static Frontend File Serving (with strict JavaScript/Wasm MIME types)
+if (fs.existsSync(clientDistPath)) {
+  app.use(
+    express.static(clientDistPath, {
+      maxAge: '1h',
+      setHeaders: (res, filePath) => {
+        // Enforce strict MIME type for JavaScript and module scripts per HTML spec
+        if (filePath.endsWith('.js') || filePath.endsWith('.mjs')) {
+          res.setHeader('Content-Type', 'text/javascript; charset=UTF-8');
+          res.setHeader('X-Content-Type-Options', 'nosniff');
+        } else if (filePath.endsWith('.css')) {
+          res.setHeader('Content-Type', 'text/css; charset=UTF-8');
+          res.setHeader('X-Content-Type-Options', 'nosniff');
+        } else if (filePath.endsWith('.html')) {
+          res.setHeader('Content-Type', 'text/html; charset=UTF-8');
+        } else if (filePath.endsWith('.json')) {
+          res.setHeader('Content-Type', 'application/json; charset=UTF-8');
+        } else if (filePath.endsWith('.wasm')) {
+          res.setHeader('Content-Type', 'application/wasm');
+        } else if (filePath.endsWith('.svg')) {
+          res.setHeader('Content-Type', 'image/svg+xml');
+        }
+      },
+    })
+  );
+
+  // Single-Page Application (SPA) routing fallback for non-API navigation requests
+  app.get('*', (req, res, next) => {
+    if (
+      req.path.startsWith('/api') ||
+      req.path.startsWith('/health') ||
+      req.path.startsWith('/analyze') ||
+      req.path.startsWith('/report')
+    ) {
+      return next();
+    }
+    res.setHeader('Content-Type', 'text/html; charset=UTF-8');
+    res.sendFile(path.join(clientDistPath, 'index.html'));
+  });
+}
+
+// 8. Global 404 & Error Handler
 app.use((req, res) => {
   res.status(404).json({ error: 'Endpoint not found' });
 });
