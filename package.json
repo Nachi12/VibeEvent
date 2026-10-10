@@ -1,0 +1,14 @@
+{
+  "name": "jobshield-workspace",
+  "version": "1.0.0",
+  "private": true,
+  "description": "JobShield - AI-Powered Job Scam Detection Hackathon MVP",
+  "scripts": {
+    "dev:server": "cd jobshield/server && npm run dev",
+    "dev:client": "cd jobshield/client && npm run dev",
+    "start:server": "cd jobshield/server && npm start",
+    "build:client": "cd jobshield/client && npm run build",
+    "test": "cd jobshield/server && npm test",
+    "install:all": "cd jobshield/server && npm install && cd ../client && npm install"
+  }
+}

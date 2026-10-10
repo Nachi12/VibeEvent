@@ -1,0 +1,159 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --color-paper: #F6F4F1;
+    --color-stone: #E4DED2;
+    --color-coral: #F95C4B;
+    --color-black: #000000;
+
+    --font-serif: "Newsreader", Georgia, serif;
+    --font-display: "Instrument Serif", Georgia, serif;
+    --font-sans: "Plus Jakarta Sans", system-ui, -apple-system, sans-serif;
+    --font-mono: "JetBrains Mono", monospace;
+  }
+
+  body {
+    background-color: var(--color-paper);
+    color: var(--color-black);
+    font-family: var(--font-sans);
+    min-height: 100vh;
+    overflow-x: hidden;
+    background-image: 
+      linear-gradient(to right, rgba(0, 0, 0, 0.03) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(0, 0, 0, 0.03) 1px, transparent 1px);
+    background-size: 32px 32px;
+  }
+
+  #root {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+/* Typography Classes */
+.font-editorial-serif {
+  font-family: "Newsreader", Georgia, serif;
+  font-feature-settings: "liga", "kern";
+}
+
+.font-editorial-display {
+  font-family: "Instrument Serif", Georgia, serif;
+  letter-spacing: -0.02em;
+}
+
+.font-mono-code {
+  font-family: "JetBrains Mono", monospace;
+}
+
+/* Editorial Rules & Hairlines */
+.editorial-double-rule {
+  border-top: 2px solid #000000;
+  border-bottom: 1px solid #000000;
+  padding: 3px 0;
+}
+
+.editorial-hairline {
+  border-color: rgba(0, 0, 0, 0.15);
+}
+
+/* Editorial Paper / Stone Box Styles with Physical Shadows */
+.editorial-box {
+  background: #FFFFFF;
+  border: 1.5px solid #000000;
+  box-shadow: 4px 4px 0px #000000;
+}
+
+.editorial-box-stone {
+  background: #E4DED2;
+  border: 1.5px solid #000000;
+  box-shadow: 4px 4px 0px #000000;
+}
+
+.editorial-box-elevated {
+  background: #FFFFFF;
+  border: 2px solid #000000;
+  box-shadow: 6px 6px 0px #000000;
+}
+
+.editorial-box-flat {
+  background: #FFFFFF;
+  border: 1.5px solid #000000;
+}
+
+/* Editorial Stamps in Palette */
+.editorial-stamp-coral {
+  display: inline-flex;
+  align-items: center;
+  border: 1.5px solid #F95C4B;
+  color: #F95C4B;
+  background: rgba(249, 92, 75, 0.08);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-weight: 700;
+  font-family: "JetBrains Mono", monospace;
+}
+
+.editorial-stamp-black {
+  display: inline-flex;
+  align-items: center;
+  border: 1.5px solid #000000;
+  color: #000000;
+  background: rgba(0, 0, 0, 0.05);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-weight: 700;
+  font-family: "JetBrains Mono", monospace;
+}
+
+.editorial-stamp-stone {
+  display: inline-flex;
+  align-items: center;
+  border: 1.5px solid #000000;
+  color: #000000;
+  background: #E4DED2;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-weight: 700;
+  font-family: "JetBrains Mono", monospace;
+}
+
+/* Editorial Pull Quote */
+.editorial-pullquote {
+  position: relative;
+  font-family: "Newsreader", Georgia, serif;
+  font-style: italic;
+  line-height: 1.6;
+}
+
+.editorial-pullquote::before {
+  content: "“";
+  position: absolute;
+  top: -24px;
+  left: -16px;
+  font-size: 64px;
+  line-height: 1;
+  color: rgba(249, 92, 75, 0.25);
+  font-family: "Instrument Serif", Georgia, serif;
+  pointer-events: none;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+}
+
+::-webkit-scrollbar-track {
+  background: #F6F4F1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #E4DED2;
+  border: 1px solid #000000;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #000000;
+}
